@@ -21,7 +21,8 @@ class GhumaoView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
 	private val valueAnimator = ValueAnimator().apply {
-		setFloatValues(0F, 1F)
+		setFloatValues(0F, 1F, -1F, 0F)
+		duration = 3000
 		interpolator = DecelerateInterpolator()
 	}
 
@@ -30,7 +31,7 @@ class GhumaoView @JvmOverloads constructor(
 	var text: CharSequence = if (isInEditMode) "1234" else ""
 		set(value) {
 			field = value
-			invalidate()
+			valueAnimator.start()
 		}
 
 	var timeInterpolator: TimeInterpolator
@@ -40,6 +41,12 @@ class GhumaoView @JvmOverloads constructor(
 		}
 
 	private lateinit var charWidths: FloatArray
+
+	init {
+		valueAnimator.addUpdateListener {
+			invalidate()
+		}
+	}
 
 	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 		setMeasuredDimension(suggestedMinimumWidth, suggestedMinimumHeight)
@@ -68,7 +75,10 @@ class GhumaoView @JvmOverloads constructor(
 		val baseline = -textPaint.fontMetrics.ascent
 
 		charWidths.foldIndexed(0F) { index, x, charWidth ->
-			canvas.drawText(text[index].toString(), x, baseline, textPaint)
+			val y: Float =
+					if (index == 0) (height / 2F) + valueAnimator.animatedValue as Float * 30
+					else baseline
+			canvas.drawText(text[index].toString(), x, y, textPaint)
 			x + charWidth
 		}
 	}
