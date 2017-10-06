@@ -27,7 +27,7 @@ class GhumaoView @JvmOverloads constructor(
 
 	val textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG)
 
-	var text: String = if (isInEditMode) "1234" else ""
+	var text: CharSequence = if (isInEditMode) "1234" else ""
 		set(value) {
 			field = value
 			invalidate()
@@ -49,7 +49,7 @@ class GhumaoView @JvmOverloads constructor(
 	public override fun getSuggestedMinimumWidth(): Int {
 		// We'll use charWidths later on to calculate center position of each character
 		charWidths = FloatArray(text.length)
-		textPaint.getTextWidths(text, charWidths)
+		textPaint.getTextWidths(text, 0, text.length, charWidths)
 		return charWidths.sum().toInt() + paddingLeft + paddingRight
 	}
 
