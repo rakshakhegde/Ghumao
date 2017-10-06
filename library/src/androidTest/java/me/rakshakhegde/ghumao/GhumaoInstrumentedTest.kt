@@ -2,6 +2,8 @@ package me.rakshakhegde.ghumao
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
+import io.kotlintest.matchers.beGreaterThan
+import io.kotlintest.matchers.should
 import io.kotlintest.matchers.shouldBe
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,9 +19,13 @@ class GhumaoInstrumentedTest {
 	private val ghumaoView = GhumaoView(appContext)
 
 	@Test
-	fun changesWidthOnSettingText() {
-		ghumaoView.width shouldBe 0
+	fun changesBoundsOnSettingText() {
+		ghumaoView.setPadding(5, 10, 5, 10)
+		ghumaoView.suggestedMinimumWidth shouldBe 10
+		ghumaoView.suggestedMinimumHeight should beGreaterThan(20)
+
 		ghumaoView.text = "1234"
-		assert(ghumaoView.width > 0)
+
+		ghumaoView.suggestedMinimumWidth should beGreaterThan(10)
 	}
 }

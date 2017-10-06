@@ -3,7 +3,6 @@ package me.rakshakhegde.ghumao;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.animation.AccelerateDecelerateInterpolator;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +30,5 @@ public class JavaInstrumentedTest {
 		new GhumaoView(appContext);
 		new GhumaoView(appContext, null);
 		new GhumaoView(appContext, null, 0);
-		new GhumaoView(appContext, null, 0, new AccelerateDecelerateInterpolator());
 	}
 }

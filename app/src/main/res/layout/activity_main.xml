@@ -8,8 +8,11 @@
 	tools:context=".MainActivity">
 
 	<me.rakshakhegde.ghumao.GhumaoView
+		android:id="@+id/ghumao"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:background="#DDD"
+		android:padding="8dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintLeft_toLeftOf="parent"
 		app:layout_constraintRight_toRightOf="parent"
