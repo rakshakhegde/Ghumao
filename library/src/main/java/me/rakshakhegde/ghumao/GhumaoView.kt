@@ -39,7 +39,7 @@ class GhumaoView @JvmOverloads constructor(
 			valueAnimator.interpolator = timeInterpolator
 		}
 
-	private lateinit var textWidths: FloatArray
+	private lateinit var charWidths: FloatArray
 
 	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 		setMeasuredDimension(suggestedMinimumWidth, suggestedMinimumHeight)
@@ -47,10 +47,10 @@ class GhumaoView @JvmOverloads constructor(
 
 	@VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
 	public override fun getSuggestedMinimumWidth(): Int {
-		// We'll use textWidths later on to calculate center position of each character
-		textWidths = FloatArray(text.length)
-		textPaint.getTextWidths(text, textWidths)
-		return textWidths.sum().toInt() + paddingLeft + paddingRight
+		// We'll use charWidths later on to calculate center position of each character
+		charWidths = FloatArray(text.length)
+		textPaint.getTextWidths(text, charWidths)
+		return charWidths.sum().toInt() + paddingLeft + paddingRight
 	}
 
 	@VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
@@ -67,9 +67,9 @@ class GhumaoView @JvmOverloads constructor(
 
 		val baseline = -textPaint.fontMetrics.ascent
 
-		textWidths.foldIndexed(0F) { index, x, currentWidth ->
+		charWidths.foldIndexed(0F) { index, x, charWidth ->
 			canvas.drawText(text[index].toString(), x, baseline, textPaint)
-			x + currentWidth
+			x + charWidth
 		}
 	}
 }
