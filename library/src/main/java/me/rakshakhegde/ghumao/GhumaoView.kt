@@ -66,6 +66,10 @@ class GhumaoView @JvmOverloads constructor(
 		canvas.translate(paddingLeft.toFloat(), paddingTop.toFloat())
 
 		val baseline = -textPaint.fontMetrics.ascent
-		canvas.drawText(text, 0F, baseline, textPaint)
+
+		textWidths.foldIndexed(0F) { index, x, currentWidth ->
+			canvas.drawText(text[index].toString(), x, baseline, textPaint)
+			x + currentWidth
+		}
 	}
 }
